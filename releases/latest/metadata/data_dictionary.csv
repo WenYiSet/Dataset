@@ -1,0 +1,44 @@
+﻿field,group,language_or_type,description,missing_value,multi_value_separator
+pattern_id,identity,Code or status,Stable WenYi pattern identifier.,Blank,
+title_zh,identity,Chinese,Title zh.,Blank,
+title_en,identity,English,Title en.,Blank,
+title_status,identity,Code or status,Provenance and review state of the English display title.,Blank,
+description_zh,content,Chinese,Description zh.,Blank,
+description_en,content,English,Description en.,Blank,
+motif_category_codes,content,Code or status,Motif category codes.,Blank, | 
+motif_category_zh,content,Chinese,Motif category zh.,Blank,
+motif_category_en,content,English,Motif category en.,Blank,
+motif_type_zh,content,Chinese,Motif type zh.,Blank, | 
+motif_type_en,content,English,Motif type en.,Blank, | 
+period_codes,context,Code or status,Period codes.,Blank, | 
+period_zh,context,Chinese,Period zh.,Blank,
+period_en,context,English,Period en.,Blank,
+period_detail_zh,context,Chinese,Period detail zh.,Blank,
+period_detail_en,context,English,Period detail en.,Blank,
+carrier_codes,context,Code or status,Carrier codes.,Blank, | 
+carrier_zh,context,Chinese,Carrier zh.,Blank,
+carrier_en,context,English,Carrier en.,Blank,
+carrier_type_zh,context,Chinese,Carrier type zh.,Blank,
+carrier_type_en,context,English,Carrier type en.,Blank,
+place_zh,context,Chinese,Place zh.,Blank,
+place_en,context,English,Place en.,Blank,
+semantic_subject_codes,cultural_semantics,Code or status,Semantic subject codes.,Blank, | 
+semantic_subject_zh,cultural_semantics,Chinese,Semantic subject zh.,Blank,
+semantic_subject_en,cultural_semantics,English,Semantic subject en.,Blank,
+semantic_keywords_zh,cultural_semantics,Chinese,Semantic keywords zh.,Blank, | 
+semantic_keywords_en,cultural_semantics,English,Semantic keywords en.,Blank, | 
+semantic_description_zh,cultural_semantics,Chinese,Semantic description zh.,Blank,
+semantic_description_en,cultural_semantics,English,Semantic description en.,Blank,
+visual_structure_codes,visual_form,Code or status,Visual structure codes.,Blank, | 
+visual_structure_zh,visual_form,Chinese,Visual structure zh.,Blank,
+visual_structure_en,visual_form,English,Visual structure en.,Blank,
+visual_morphology_zh,visual_form,Chinese,Visual morphology zh.,Blank,
+visual_morphology_en,visual_form,English,Visual morphology en.,Blank,
+visual_style_codes,visual_form,Code or status,Visual style codes.,Blank, | 
+visual_style_zh,visual_form,Chinese,Visual style zh.,Blank,
+visual_style_en,visual_form,English,Visual style en.,Blank,
+source_reference,source_and_status,Code or status,Publication or source note retained from the annotation workbook.,Blank,
+image_path,source_and_status,Code or status,Repository-relative source image path.,Blank,
+image_url,source_and_status,Code or status,Direct public URL for the source image.,Blank,
+record_status,source_and_status,Code or status,Record status in the derived dataset.,Blank,
+translation_status,source_and_status,Code or status,Release-level warning that machine-draft English requires review.,Blank,

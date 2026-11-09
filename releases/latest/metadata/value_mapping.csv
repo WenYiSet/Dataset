@@ -1,0 +1,66 @@
+﻿dimension,source_field,raw_value_zh,normalized_code,normalized_zh,normalized_en,mapping_status,mapping_note_zh,raw_occurrence_count,raw_record_count,basis
+carrier_domain,carrier_category_raw_zh,器物,vessel,器物,Vessel,direct,,894,894,Figure 6 and Sect. 3.3 Step 2
+carrier_domain,carrier_category_raw_zh,,unknown,不详,Unknown,unknown,原字段为空。,535,535,Figure 6 and Sect. 3.3 Step 2
+carrier_domain,carrier_category_raw_zh,建筑和雕塑,architecture_sculpture,建筑与雕塑,Architecture & Sculpture,normalized_label,,491,491,Figure 6 and Sect. 3.3 Step 2
+carrier_domain,carrier_category_raw_zh,装饰,adornment,装饰,Adornment,direct,,354,354,Figure 6 and Sect. 3.3 Step 2
+carrier_domain,carrier_category_raw_zh,织绣,textile,织绣,Textile,direct,,232,232,Figure 6 and Sect. 3.3 Step 2
+carrier_domain,carrier_category_raw_zh,平面绘画,pictorial_work,平面绘画,Pictorial Work,direct,,201,201,Figure 6 and Sect. 3.3 Step 2
+carrier_domain,carrier_category_raw_zh,其他,unknown,不详,Unknown,unknown,“其他”不构成稳定载体类别，归入不详。,175,175,Figure 6 and Sect. 3.3 Step 2
+carrier_domain,carrier_category_raw_zh,不详,unknown,不详,Unknown,unknown,,136,136,Figure 6 and Sect. 3.3 Step 2
+carrier_domain,carrier_category_raw_zh,工具,implement,工具,Implement,direct,,71,71,Figure 6 and Sect. 3.3 Step 2
+carrier_domain,carrier_category_raw_zh,建筑,architecture_sculpture,建筑与雕塑,Architecture & Sculpture,consolidated,并入 Figure 6 的“建筑与雕塑”。,37,37,Figure 6 and Sect. 3.3 Step 2
+carrier_domain,carrier_category_raw_zh,兵器,implement,工具,Implement,consolidated,兵器并入 Figure 6 的 Implement。,17,17,Figure 6 and Sect. 3.3 Step 2
+carrier_domain,carrier_category_raw_zh,服饰,adornment,装饰,Adornment,consolidated_review_required,按 Figure 6 并入 Adornment，建议人工确认服饰类记录是否需要独立保留。,4,4,Figure 6 and Sect. 3.3 Step 2
+semantic_subject,semantic_domain_raw_zh,,,,,unassigned,Figure 6 未将缺失语义设置为筛选类别。,1991,1991,Figure 6 and Sect. 3.3 Step 2
+semantic_subject,semantic_domain_raw_zh,思想,ideology,思想,Ideology,direct,,520,520,Figure 6 and Sect. 3.3 Step 2
+semantic_subject,semantic_domain_raw_zh,身份,identity,身份,Identity,direct,,428,428,Figure 6 and Sect. 3.3 Step 2
+semantic_subject,semantic_domain_raw_zh,吉祥,auspiciousness,吉祥,Auspiciousness,direct,,194,194,Figure 6 and Sect. 3.3 Step 2
+semantic_subject,semantic_domain_raw_zh,叙事,narrativity,叙事,Narrativity,direct,,13,13,Figure 6 and Sect. 3.3 Step 2
+semantic_subject,semantic_domain_raw_zh,审美,aestheticity,审美,Aestheticity,direct,,2,2,Figure 6 and Sect. 3.3 Step 2
+motif_category,motif_category_raw_zh,动物,animal,动物,Animal,direct,,1878,1878,Figure 6 and Sect. 3.3 Step 2
+motif_category,motif_category_raw_zh,植物,plant,植物,Plant,direct,,888,888,Figure 6 and Sect. 3.3 Step 2
+motif_category,motif_category_raw_zh,,,,,unassigned,缺失意象类别不进入筛选项。,654,654,Figure 6 and Sect. 3.3 Step 2
+motif_category,motif_category_raw_zh,自然,nature,自然,Nature,direct,,346,346,Figure 6 and Sect. 3.3 Step 2
+motif_category,motif_category_raw_zh,人和人造物,human_artifact,人与人造物,Human & Artifact,normalized_label,,203,203,Figure 6 and Sect. 3.3 Step 2
+motif_category,motif_category_raw_zh,几何装饰,human_artifact,人与人造物,Human & Artifact,consolidated_review_required,Figure 6 仅有四类。几何装饰暂并入人与人造物，但此合并具有语义损失。,30,30,Figure 6 and Sect. 3.3 Step 2
+motif_category,motif_category_raw_zh,人物,human_artifact,人与人造物,Human & Artifact,consolidated,,16,16,Figure 6 and Sect. 3.3 Step 2
+motif_category,motif_category_raw_zh,文字装饰,human_artifact,人与人造物,Human & Artifact,consolidated_review_required,Figure 6 仅有四类。文字装饰暂并入人与人造物，但此合并具有语义损失。,7,7,Figure 6 and Sect. 3.3 Step 2
+motif_category,motif_category_raw_zh,人造物,human_artifact,人与人造物,Human & Artifact,consolidated,,1,1,Figure 6 and Sect. 3.3 Step 2
+motif_category,motif_category_raw_zh,场景,human_artifact,人与人造物,Human & Artifact,consolidated_review_required,Figure 6 仅有四类。场景暂并入人与人造物，建议复核。,1,1,Figure 6 and Sect. 3.3 Step 2
+visual_structure,visual_structure_raw_zh,单体,single,单体,Single,direct,,1542,1542,Figure 6 and Sect. 3.3 Step 2
+visual_structure,visual_structure_raw_zh,装饰性组合,decorative_combination,装饰性组合,Decorative Combination,direct,,464,464,Figure 6 and Sect. 3.3 Step 2
+visual_structure,visual_structure_raw_zh,,,,,unassigned,,462,462,Figure 6 and Sect. 3.3 Step 2
+visual_structure,visual_structure_raw_zh,场景性组合,scene_combination,场景性组合,Scene Combination,direct,,339,339,Figure 6 and Sect. 3.3 Step 2
+visual_structure,visual_structure_raw_zh,单体重复,repeat_tile,重复与平铺,Repeat & Tile,consolidated,,225,225,Figure 6 and Sect. 3.3 Step 2
+visual_structure,visual_structure_raw_zh,重复与平铺,repeat_tile,重复与平铺,Repeat & Tile,direct,,114,114,Figure 6 and Sect. 3.3 Step 2
+visual_style,visual_style_raw_zh,,,,,unassigned,,1372,1372,Figure 6 and Sect. 3.3 Step 2
+visual_style,visual_style_raw_zh,抽象,abstract,抽象,Abstract,direct,,610,610,Figure 6 and Sect. 3.3 Step 2
+visual_style,visual_style_raw_zh,很抽象,abstract,抽象,Abstract,consolidated,,269,269,Figure 6 and Sect. 3.3 Step 2
+visual_style,visual_style_raw_zh,具象,realistic,写实,Realistic,consolidated,,267,267,Figure 6 and Sect. 3.3 Step 2
+visual_style,visual_style_raw_zh,很具象,realistic,写实,Realistic,consolidated,,253,253,Figure 6 and Sect. 3.3 Step 2
+visual_style,visual_style_raw_zh,写实,realistic,写实,Realistic,direct,,198,198,Figure 6 and Sect. 3.3 Step 2
+visual_style,visual_style_raw_zh,较抽象,abstract,抽象,Abstract,consolidated,,156,156,Figure 6 and Sect. 3.3 Step 2
+visual_style,visual_style_raw_zh,较具象,realistic,写实,Realistic,consolidated,,21,21,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,,unknown,不详,Unknown,unknown,原字段为空。,612,612,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,不详,unknown,不详,Unknown,unknown,,366,366,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,宋代,song,宋代,Song,direct,,307,307,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,明代,ming,明代,Ming,direct,,260,260,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,商代,shang,商代,Shang,direct,,259,259,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,清代,qing,清代,Qing,direct,,250,250,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,西周,western_zhou,西周,Western Zhou,direct,,205,205,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,唐代,tang,唐代,Tang,direct,,160,160,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,战国,warring_states,战国,Warring States,direct,,147,147,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,春秋,spring_autumn,春秋,Spring and Autumn,direct,,141,141,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,汉代,han,汉代,Han,direct,,95,95,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,魏晋,wei_jin,魏晋,Wei-Jin,direct,,69,69,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,近现代,modern,近现代,Modern,additional_period,数据中存在，但 Figure 6 未单列。,66,66,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,东汉,han,汉代,Han,consolidated,东汉信息应继续保留在 period detail。,62,62,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,西汉,han,汉代,Han,consolidated,西汉信息应继续保留在 period detail。,61,61,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,元代,yuan,元代,Yuan,direct,,60,60,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,石器时代,neolithic,新石器时代,Neolithic Period,pending_review,原值“石器时代”范围更宽。按论文图表暂映射为 Neolithic Period。,49,49,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,五代,five_dynasties,五代,Five Dynasties,direct,,20,20,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,隋代,sui,隋代,Sui,direct,,19,19,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,南北朝,northern_southern_dynasties,南北朝,Northern and Southern Dynasties,direct,,18,18,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,秦代,qin,秦代,Qin,direct,,13,13,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,新石器时代,neolithic,新石器时代,Neolithic Period,direct,,12,12,Figure 6 and Sect. 3.3 Step 2
+period,period_raw_zh,辽代,liao,辽代,Liao,additional_period,数据中存在，但 Figure 6 未单列。保留独立时期以避免错误并入。,8,8,Figure 6 and Sect. 3.3 Step 2
