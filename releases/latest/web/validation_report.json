@@ -1,0 +1,15 @@
+{
+  "checks": {
+    "all_records_have_bilingual_titles": true,
+    "all_records_have_public_image_urls": true,
+    "record_count_is_3146": true,
+    "record_ids_unique": true
+  },
+  "knownLimitations": [
+    "Machine-draft translations require ongoing human review.",
+    "Image-derived titles remain suggestions until domain review is complete.",
+    "Some descriptive and semantic fields are blank because the source records are incomplete.",
+    "Image rights remain source-specific and are not granted by the metadata release."
+  ],
+  "status": "passed_for_initial_public_release"
+}

@@ -1,0 +1,14 @@
+{
+  "dataRepository": "https://github.com/WenYiSet/Dataset",
+  "explorer": "https://wenyiset.github.io/Dataset/",
+  "identifiersFrozen": true,
+  "imagesMaterialized": false,
+  "imagesRedistributionReady": 0,
+  "publicRelease": true,
+  "records": 3146,
+  "releaseDate": "2026-11-10",
+  "releaseKind": "initial public working release",
+  "schemaVersion": "1.3-normalized-working",
+  "sourceVersion": "normalized-annotations-working-0.3",
+  "version": "0.1.0"
+}
