@@ -3,6 +3,7 @@ div {
 }
 
 .container {
+  --sidebar-width: clamp(176px, 13.5vw, 196px);
   width: 100vw;
   height: 100vh;
   flex-direction: column;
@@ -14,15 +15,33 @@ div {
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  height: 5vh;
+  height: clamp(44px, 5vh, 56px);
+  flex: 0 0 clamp(44px, 5vh, 56px);
   box-shadow: 0 4px 3px 0 rgba(80, 104, 87, 0.25);
   z-index: 1;  /* Header置顶，让阴影置于Main的背景颜色之上 */
 }
 .Header .title{
-  width: 15vw;
-  margin-left: 2vw;
+  width: var(--sidebar-width);
+  flex: 0 0 var(--sidebar-width);
+  box-sizing: border-box;
+  gap: 7px;
+  padding-left: 10px;
   align-items: center;
 }
+.Header .brand-mark{
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  object-fit: contain;
+}
+.Header .brand-wordmark{
+  display: block;
+  height: auto;
+  object-fit: contain;
+  object-position: left center;
+}
+.Header .brand-wordmark.chinese{ width: 61px; }
+.Header .brand-wordmark.english{ width: 126px; }
 .Header .search-box{
   width: 40vw;
   height: 3.5vh;
@@ -33,10 +52,30 @@ div {
   background-color: #F0F0F0;
   padding: 0 0 0 0.5vw;
 }
+.Header .search-box .no-border-input{
+  min-width: 0;
+  flex: 1;
+}
+.Header .search-icon{
+  width: 24px;
+  height: 20px;
+  flex: 0 0 24px;
+  cursor: pointer;
+}
 .Header .Personalization{
-  width: 15vw;
-  height: 3vh;
+  width: auto;
+  min-width: 100px;
+  height: 34px;
   align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+  margin-right: 18px;
+}
+.Header .language-toggle{
+  width: 30px;
+  height: 26px;
+  flex: 0 0 30px;
+  cursor: pointer;
 }
 
 
@@ -48,12 +87,12 @@ div {
 }
 .Main .controller {
   height: 100%;
-  width: 18vw;
+  width: var(--sidebar-width);
   overflow-y: auto;
   flex-direction: column;
 }
 .Medium_block{
-  padding: 2vh 1vw 2vh 1vw;
+  padding: 8px 7px;
   flex-direction: column;
 }
 .Medium_block .graph{
@@ -84,7 +123,7 @@ div {
 }
 
 .Subject_block{
-  margin: 0 1vw 2vh 1vw;
+  margin: 0 7px 8px;
   /* background-color: aqua; */
   flex-direction: column;
 }
@@ -103,7 +142,7 @@ div {
   flex-grow: 1;
 }
 .VisualFormat_block{
-  margin: 0 1vw 2vh 1vw;
+  margin: 0 7px 8px;
   flex-direction: column;
 }
 .VisualFormat_block .checkgroup{
@@ -120,7 +159,7 @@ div {
 
 .Main .viewer {
   height: 100%;
-  width: 82vw;
+  width: calc(100vw - var(--sidebar-width));
   background-color: #F5F5F5;
   overflow: auto;
   flex-wrap: wrap;
@@ -141,12 +180,15 @@ div {
 }
 .History_period .selector{
   height: 100%;
-  margin-left: 1vw;
-  width: 10vw;
+  margin-left: 12px;
+  width: calc(var(--sidebar-width) - 12px);
+  flex: 0 0 calc(var(--sidebar-width) - 12px);
+  align-items: center;
 }
 .History_period .selector span{
-  font-size: large;
-  margin-right: 0.5vw;
+  font-size: 17px;
+  margin-right: 6px;
+  font-weight: 700;
 }
 .History_period .selector .icon_arrow{
   height: 100%;
