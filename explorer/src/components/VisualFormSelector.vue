@@ -113,5 +113,10 @@ legend {
 }
 :deep(.el-checkbox) {
   margin-right: 10px;
+  white-space: nowrap;
+}
+:deep(.el-checkbox__label) {
+  font-size: 15px;
+  white-space: nowrap;
 }
 </style>

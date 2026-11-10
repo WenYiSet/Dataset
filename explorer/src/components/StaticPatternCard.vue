@@ -18,8 +18,15 @@
         @toggle="$emit('toggle-favorite', $event)"
       />
     </div>
-    <div class="tags">
-      <span v-for="item in motifTags" :key="item">{{ item }}</span>
+    <div class="tags" :class="{ english: language === 'English' }">
+      <button
+        v-for="item in motifTags"
+        :key="item"
+        type="button"
+        :class="{ long: item.length > 20 }"
+        :aria-label="motifSearchLabel(item)"
+        @click.stop="$emit('select-motif', item)"
+      >{{ item }}</button>
     </div>
     <div class="metadata-values">
       <span :class="{ unknown: isUnknown(periods) }">{{ periods }}</span>
@@ -36,7 +43,7 @@ import { localizedList } from '../data/wenyiData';
 export default {
   name: 'StaticPatternCard',
   components: { FavoriteButton },
-  emits: ['toggle-favorite'],
+  emits: ['toggle-favorite', 'select-motif'],
   props: {
     size: { type: Array, default: () => [200, 300] },
     language: { type: String, default: 'Chinese' },
@@ -48,7 +55,7 @@ export default {
   },
   computed: {
     containerStyle() {
-      return { width: `${this.size[0]}px`, height: `${this.size[1]}px` };
+      return { width: '100%', height: `${this.size[1]}px` };
     },
     displayTitle() {
       const title = this.dataset.title || {};
@@ -102,6 +109,9 @@ export default {
     },
   },
   methods: {
+    motifSearchLabel(item) {
+      return this.language === 'English' ? `Use ${item} as search text` : `将${item}填入搜索框`;
+    },
     unique(values) {
       return [...new Set(values.filter(Boolean))];
     },
@@ -174,7 +184,7 @@ header.compact {
   align-items: center;
   justify-content: center;
   margin: 0 8px;
-  background: #f4f4f4;
+  background: #fff;
 }
 .image-frame img {
   width: 100%;
@@ -188,23 +198,47 @@ header.compact {
 }
 .tags {
   display: flex;
-  min-height: 28px;
+  min-height: 0;
+  max-height: 55px;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: flex-start;
   gap: 4px;
-  padding: 6px 8px;
+  padding: 4px 8px 5px;
   overflow: hidden;
 }
-.tags span {
-  padding: 2px 5px;
-  overflow: hidden;
+.tags button {
+  box-sizing: border-box;
+  padding: 3px 6px;
   border: 1px solid #aaa;
   border-radius: 5px;
+  background: #fff;
+  color: inherit;
+  cursor: pointer;
+  font-family: inherit;
   font-size: 11px;
-  text-overflow: ellipsis;
+  line-height: 16px;
+  overflow-wrap: normal;
+  word-break: normal;
   white-space: nowrap;
+}
+.tags button:hover,
+.tags button:focus-visible {
+  border-color: #5f9dda;
+  background: rgba(95, 157, 218, 0.1);
+  outline: none;
+}
+.tags.english button {
+  font-size: 10.5px;
+}
+.tags.english button.long {
+  font-size: 9px;
 }
 .metadata-values {
   display: flex;
-  min-height: 48px;
+  min-height: 61px;
   box-sizing: border-box;
   flex-direction: column;
   justify-content: center;

@@ -1,18 +1,18 @@
 <template>
-  <div class="selector" :style="selector_style">
-    <div class="title" :style="title_style">
+  <div class="selector" :class="{ collapsed: !isActive }" :style="{ width: size + 'px' }">
+    <div class="title">
       <div class="panel">
         <span class="panel-title">{{ this.title }}</span>
         <el-checkbox class="panel_checkbox" v-for="(label, index) in item_labels"
-            v-model="item_status[index]" :label=label size="large" v-show="item_status[index]"/>
+            v-model="item_status[index]" :label=label v-show="item_status[index]"/>
       </div>
       <div class="btn" v-on:click="handleClick">
-        <img class="img" :src="icon_arrow" :style="image_style"/>
+        <img class="img" :src="isActive ? icon_arrow_up : icon_arrow_down"/>
       </div>
     </div>
     <div class="options" v-if="isActive">
       <el-checkbox v-for="(label, index) in item_labels"
-          v-model="item_status[index]" :label=label size="large" />
+          v-model="item_status[index]" :label=label />
     </div>
   </div>
 </template>
@@ -54,76 +54,47 @@ export default {
     return {
       icon_arrow_up: icon_arrow_up,
       icon_arrow_down: icon_arrow_down,
-      icon_arrow: icon_arrow_up,
       isActive: true,
-      selector_style: null,
-      title_style: null,
-      image_style:{
-        width: 0.06 * this.size  + 'px',
-      },
     }
-  },
-  created(){
-    this.selector_style = {
-        width: this.size + 'px',
-        "border": (this.isActive)?"1px solid rgba(185, 185, 185, 1)":"none"
-      }
-    this.title_style = {
-        "backgound-color": (this.isActive)?"#5F9DDA40":"none"
-      }
   },
   methods: {
     handleClick(){
       this.isActive = (this.isActive)?false:true;
     },
   },
-  watch:{
-    isActive(newVal, oldVal){
-      this.selector_style = {
-        width: this.size + 'px',
-        "border": (this.isActive)?"1px solid rgba(185, 185, 185, 1)":"none"
-      }
-      this.icon_arrow = (this.isActive)?this.icon_arrow_up:this.icon_arrow_down;
-      this.title_style = {
-        "backgound-color": (this.isActive)?"#5F9DDA40":"none"
-      }
-    },
-    // item_list:{
-    //   handler(newVal, oldVal){
-    //     console.log(newVal);
-    //   },
-    //   deep: true,
-    // }
-  }
 }
 
 </script>
 
 <style scoped>
 .selector{
-  /* min-height: 5vh; */
   display: flex;
+  overflow: hidden;
   flex-direction: column;
-  border-radius: 5px;
   box-sizing: border-box;
   border: 1px solid #B9B9B9;
+  border-radius: 5px;
+  background: #F3F3F3;
 }
 .selector .title{
-  /* width: 100%; */
   display: flex;
+  min-height: 34px;
+  width: 100%;
+  box-sizing: border-box;
   align-items: center;
   justify-content: space-between;
-  padding: 0 0.5vw;
+  padding: 4px 10px;
   background-color: #5F9DDA40;
 }
 .panel{
-  width: 90%;
   display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
   flex-wrap: wrap;
 }
 .panel-title{
   margin-right: 5px;
-  font-size: 2vh;
+  font-size: 16px;
   font-weight: 700;
 }
 .panel_checkbox{
@@ -135,21 +106,29 @@ export default {
 }
 
 .selector .options{
-  width: 100%;
   display: flex;
+  width: 100%;
+  box-sizing: border-box;
   flex-direction: column;
-  background-color: #F3F3F3;
+  padding: 4px 8px 6px;
   border-top: 1px solid rgba(185, 185, 185, 1);
+  background-color: #F3F3F3;
+}
+:deep(.el-checkbox),
+:deep(.el-checkbox__label){
+  white-space: nowrap;
 }
 .btn{
   display: flex;
-  width: 10%;
+  width: 18px;
   height: 100%;
+  flex: 0 0 18px;
   justify-content: center;
   align-items: center;
   cursor: pointer;
 }
 .img{
+  width: 18px;
   aspect-ratio: 2;
 }
 </style>

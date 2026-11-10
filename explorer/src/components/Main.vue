@@ -3,12 +3,17 @@
     <!-- 顶部栏 -->
     <div class="Header">
         <div class="title">
-          <el-image :src="icon_mark" style="width: 3vw;height: 3vh;" fit="fill"/>
-          <span style="font-size: 3vh;">{{ label_name.SystemName }}</span>
+          <img :src="icon_mark" class="brand-mark" alt="" />
+          <img
+            :src="language === 'Chinese' ? icon_logo_cn : icon_logo_en"
+            class="brand-wordmark"
+            :class="language === 'Chinese' ? 'chinese' : 'english'"
+            :alt="label_name.SystemName"
+          />
         </div>
         <div class="search-box">
-          <el-input class="no-border-input" v-model="input_value" style="width: 35vw" :placeholder=label_name.InputHolder  v-on:keyup.enter="search()"/>
-          <el-image :src="icon_search" style="width: 2vw;height: 2vh;cursor: pointer;" fit="fill" v-on:click="search()"/>
+          <el-input class="no-border-input" v-model="input_value" :placeholder=label_name.InputHolder  v-on:keyup.enter="search()"/>
+          <el-image :src="icon_search" class="search-icon" fit="fill" v-on:click="search()"/>
         </div>
         <div class="Personalization">
           <button
@@ -29,7 +34,7 @@
           </button>
           <el-image
             :src="icon_trans"
-            style="width: 2.5vw;height: 2.5vh;cursor: pointer;"
+            class="language-toggle"
             fit="fill"
             role="button"
             tabindex="0"
@@ -106,19 +111,16 @@
       </div>
 
       <div class="viewer">  <!-- 右侧主视图模块 -->
-        <div class="viewer-toolbar" v-if="static_mode">
+        <div class="viewer-status" v-if="static_mode && (loading || load_error)">
           <span v-if="loading">{{ language === 'Chinese' ? '正在加载数据' : 'Loading data' }}</span>
-          <span v-else-if="load_error" class="load-error">{{ load_error }}</span>
-          <template v-else>
-            <span>{{ data_version?.version || 'WenYi' }}</span>
-            <span>{{ filtered_data.length }} / {{ results.length }}</span>
-            <span>{{ language === 'Chinese' ? '当前显示' : 'Visible' }} {{ visible_data.length }}</span>
-          </template>
+          <span v-else class="load-error">{{ load_error }}</span>
         </div>
         <component :is="active_card_component" :size="cardSize" v-for="value in visible_data"
             :key="record_key(value)" :dataset="value" :language=language v-on:click="set_detail(value)"
             :favorite="is_favorite(value)" @toggle-favorite="toggle_favorite"
-            style="margin: 0.5vw 0.5vw;cursor: pointer;"/>
+            @select-motif="set_search_term"
+            :class="{ 'static-viewer-card': static_mode }"
+            style="cursor: pointer;"/>
         <button v-if="has_more" class="load-more" type="button" @click="load_more">
           {{ language === 'Chinese' ? '加载更多' : 'Load more' }}
         </button>
@@ -226,6 +228,8 @@ import VisualFormSelector from './VisualFormSelector.vue';
 
 import {ref} from 'vue'
 import icon_mark from '../assets/images/mark.png';
+import icon_logo_cn from '../assets/images/icon_WenYi_cn.png';
+import icon_logo_en from '../assets/images/icon_WenYi_en.png';
 import icon_search from '../assets/images/search.png';
 import icon_trans from '../assets/images/icon_trans.png';
 import icon_arrow_up from '../assets/images/arrow_up.png';
@@ -264,6 +268,8 @@ export default {
   data() {
       return {
         icon_mark: icon_mark,
+        icon_logo_cn: icon_logo_cn,
+        icon_logo_en: icon_logo_en,
         icon_search: icon_search,
         icon_trans: icon_trans,
         icon_arrow_up: icon_arrow_up,
@@ -279,7 +285,7 @@ export default {
         selectorSize: 15 * window.innerWidth / 100,
         radialbarchartSize: [15 * window.innerWidth / 100, 5 * window.innerHeight / 100],
         cardSize: isStaticDataMode()
-          ? [200, 300]
+          ? [228, 318]
           : [
               (82 - 5) * window.innerWidth / 100 / 6 - 8,
               (82 - 5) * window.innerWidth / 100 / 6 * 1.5,
@@ -306,6 +312,7 @@ export default {
         static_mode: isStaticDataMode(),
         static_facets: null,
         static_facet_values: {},
+        static_period_keys: [],
         static_all_results: [],
         period_base_data: [],
         data_version: null,
@@ -342,18 +349,14 @@ export default {
       },
       period_bar_options() {
         if (!this.static_mode) return [];
-        const values = this.static_facet_values.periods || [];
+        const groups = this.static_facet_values.periods || [];
         const labels = this.label_name.HistoryItems || [];
-        const counts = Object.fromEntries(values.map((value) => [value, 0]));
-        this.period_base_data.forEach((record) => {
-          values.forEach((value) => {
-            if (matchesFacetValues(record.context?.periods, [value])) counts[value] += 1;
-          });
-        });
-        return values.map((value, index) => ({
-          value,
-          label: labels[index] || value,
-          count: counts[value] || 0,
+        return groups.map((members, index) => ({
+          value: this.static_period_keys[index] || members[0],
+          label: labels[index] || this.static_period_keys[index] || members[0],
+          count: this.period_base_data.filter((record) => (
+            matchesFacetValues(record.context?.periods, members)
+          )).length,
           selected: Boolean(this.history_items_status[index]),
         }));
       },
@@ -464,6 +467,9 @@ export default {
           // console.log(this.results[0]);
         });
       },
+      set_search_term(value){
+        this.input_value = String(value || '');
+      },
       set_detail(value){
         this.detail_value = value;
         this.is_detail_show = true;
@@ -489,8 +495,14 @@ export default {
         for(let i=0;i<this.label_name.StyleItems.length;i++) 
           if(this.style_items_status[i])styles.push(this.static_mode ? this.static_facet_values.visualStyles?.[i] : this.label_name.StyleItems[i]);
 
-        for(let i=0;i<this.label_name.HistoryItems.length;i++) 
-          if(this.history_items_status[i])times.push(this.static_mode ? this.static_facet_values.periods?.[i] : this.label_name.HistoryItems[i]);
+        for(let i=0;i<this.label_name.HistoryItems.length;i++) {
+          if(!this.history_items_status[i])continue;
+          if(this.static_mode){
+            const periodValues = this.static_facet_values.periods?.[i] || [];
+            times.push(...(Array.isArray(periodValues) ? periodValues : [periodValues]));
+          }
+          else times.push(this.label_name.HistoryItems[i]);
+        }
         // console.log(mediums);
         if(this.static_mode){
           this.period_base_data = this.results.filter((feature) => (
@@ -538,6 +550,48 @@ export default {
               const rightUnknown = right.value === 'unknown' || ['不详', 'Unknown'].includes(right.label);
               return Number(leftUnknown) - Number(rightUnknown);
             });
+          if(facetKey === 'periods'){
+            const optionByValue = new Map(options.map((option) => [option.value, option]));
+            const periodGroups = [
+              { key: 'prehistory', members: ['stone_age', 'neolithic'], zh: '新石器时代', en: 'Neolithic' },
+              { key: 'shang', members: ['shang'] },
+              { key: 'western_zhou', members: ['western_zhou'] },
+              { key: 'spring_autumn', members: ['spring_autumn'] },
+              { key: 'warring_states', members: ['warring_states'] },
+              { key: 'qin', members: ['qin'] },
+              { key: 'han', members: ['han', 'western_han', 'eastern_han'], zh: '汉代', en: 'Han' },
+              { key: 'wei_jin', members: ['wei_jin'] },
+              { key: 'northern_southern', members: ['northern_southern', 'northern_southern_dynasties'] },
+              { key: 'sui', members: ['sui'] },
+              { key: 'tang', members: ['tang'] },
+              { key: 'five_dynasties', members: ['five_dynasties'] },
+              { key: 'song', members: ['song'] },
+              { key: 'liao', members: ['liao'] },
+              { key: 'yuan', members: ['yuan'] },
+              { key: 'ming', members: ['ming'] },
+              { key: 'qing', members: ['qing'] },
+              { key: 'modern', members: ['modern'] },
+              { key: 'unknown', members: ['unknown'] },
+            ].map((group) => {
+              const members = group.members.filter((member) => optionByValue.has(member));
+              if(!members.length)return null;
+              const firstOption = optionByValue.get(members[0]);
+              return {
+                ...group,
+                members,
+                label: this.language === 'Chinese'
+                  ? (group.zh || firstOption.label)
+                  : (group.en || firstOption.label),
+              };
+            }).filter(Boolean);
+            this.static_period_keys = periodGroups.map((group) => group.key);
+            this.static_facet_values[facetKey] = periodGroups.map((group) => group.members);
+            this.label_name[labelKey] = periodGroups.map((group) => group.label);
+            if(this[statusKey].length !== periodGroups.length){
+              this[statusKey] = periodGroups.map(() => false);
+            }
+            return;
+          }
           this.static_facet_values[facetKey] = options.map((option) => option.value);
           this.label_name[labelKey] = options.map((option) => option.label);
           if(this[statusKey].length !== options.length){
@@ -678,25 +732,24 @@ export default {
   z-index: 3;
   cursor: pointer;
 }
-.viewer-toolbar{
+.viewer-status{
   display: flex;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  width: 100%;
+  grid-column: 1 / -1;
   min-height: 38px;
   box-sizing: border-box;
   align-items: center;
-  gap: 18px;
+  justify-content: center;
   padding: 7px 14px;
-  background: #ffffffee;
-  border-bottom: 1px solid #ddd;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
 }
 .load-error{ color: #a40000; }
 .load-more{
-  width: calc(100% - 2vw);
+  width: 100%;
   min-height: 38px;
-  margin: 10px 1vw 18px;
+  grid-column: 1 / -1;
+  margin: 2px 0 10px;
   border: 1px solid #8b8b8b;
   border-radius: 6px;
   background: #fff;
@@ -707,15 +760,48 @@ export default {
   height: auto;
   flex: 1 1 auto;
 }
+.Main.static-main .controller{
+  width: var(--sidebar-width);
+  flex: 0 0 var(--sidebar-width);
+}
+.Main.static-main .controller :deep(.selector){
+  width: 100% !important;
+}
+.Main.static-main .viewer{
+  display: grid;
+  width: auto;
+  min-width: 0;
+  flex: 1 1 auto;
+  grid-template-columns: repeat(auto-fill, minmax(252px, 1fr));
+  grid-auto-rows: 318px;
+  align-content: start;
+  gap: 8px;
+  padding: 8px;
+  box-sizing: border-box;
+}
+.static-viewer-card{
+  width: 100% !important;
+  height: 318px !important;
+  margin: 0 !important;
+}
 .Footer.static-footer{
-  height: 18vh;
-  flex: 0 0 18vh;
+  height: var(--footer-height);
+  flex: 0 0 var(--footer-height);
 }
 .Footer.static-footer .History_period{
-  height: 25%;
-  min-height: 24px;
+  height: 31px;
+  min-height: 31px;
+  padding-top: 7px;
+  box-sizing: border-box;
 }
-.history_selector.static-history-selector{ bottom: 18vh; }
+.history_selector.static-history-selector{
+  bottom: var(--footer-height);
+}
+.history_selector.static-history-selector :deep(.el-checkbox){
+  min-height: 28px;
+  margin-right: 0;
+  white-space: nowrap;
+}
 .favorites-entry{
   display: inline-flex;
   position: relative;
@@ -761,7 +847,7 @@ export default {
   position: absolute;
   top: 5vh;
   right: 0;
-  bottom: 18vh;
+  bottom: var(--footer-height);
   z-index: 4;
   width: min(340px, 88vw);
   box-sizing: border-box;
@@ -852,7 +938,10 @@ export default {
 }
 .favorites-empty{ margin: 28px 16px; color: #777; text-align: center; }
 @media (max-width: 720px){
-  .favorites-drawer{ bottom: 18vh; }
+  .Main.static-main .viewer{
+    grid-template-columns: repeat(auto-fill, minmax(218px, 1fr));
+  }
+  .favorites-drawer{ bottom: var(--footer-height); }
 }
 </style>
 
